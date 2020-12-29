@@ -13,6 +13,7 @@
         <module>spring-boot-zookeeper</module>
         <module>spring-boot-message</module>
         <module>spring-boot-websocket</module>
+        <module>spring-boot-flowable</module>
     </modules>
     <name>spring-boot-examples</name>
     <description>Demo project for Spring Boot</description>

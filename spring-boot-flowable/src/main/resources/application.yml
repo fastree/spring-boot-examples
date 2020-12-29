@@ -1,0 +1,17 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+
+server:
+  port: 8888
+  servlet:
+    context-path: /flowable
+
+flowable:
+  check-process-definitions: false #关闭自动部署流程定义。
+  database-schema-update: true #数据库schema更新策略。
+  db-history-used: true #开启历史数据存储
+  history-level: audit # 历史数据存储级别
