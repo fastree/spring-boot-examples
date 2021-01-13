@@ -1,0 +1,56 @@
+publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMjTIf2Nm1N+Dq73AfFwyDDuQ0KhdB70dhqsXYBeyW614DSmZWuR3pB+HaIZ4bfdnfw8vRndGpSBXjRi1UczPB8CAwEAAQ==
+
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/layui?useSSL=false&serverTimezone=Asia/Shanghai
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: YVBUkpoV9jKoONqOqcBtqUTpmQy6nOiXA/G3EvVS/guy4BjYEt88gX6WHhtR/tXMntCveqxYzYPhgZfNART7zg==
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+      validation-query: 'SELECT 1'
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      async-init: true
+      filters: stat,wall,slf4j,config
+      connection-properties: config.decrypt=true;config.decrypt.key=${publickey}
+      web-stat-filter:
+        enabled: true
+        url-pattern: '/*'
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        session-stat-enable: true
+        session-stat-max-count: 1000
+        principal-session-name: session.user
+        principal-cookie-name: cookie.user
+      stat-view-servlet:
+        enabled: true
+        url-pattern: '/druid/*'
+        login-username: admin
+        login-password: admin
+        reset-enable: false
+      filter:
+        stat:
+          enabled: true
+          log-slow-sql: true
+          slow-sql-millis: 3000
+          merge-sql: true
+        wall:
+          enabled: true
+          db-type: mysql
+          config:
+            truncate-allow: false
+        slf4j:
+          enabled: true
+          statement-log-enabled: true
+          statement-sql-pretty-format: true
+        config:
+          enabled: true
+      aop-patterns: com.fastree.springboot.*.service.*

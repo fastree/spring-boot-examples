@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    include:
+      - dynamicds
+
+server:
+  port: 8089
+
+mybatis-plus:
+  global-config:
+    banner: off
+
