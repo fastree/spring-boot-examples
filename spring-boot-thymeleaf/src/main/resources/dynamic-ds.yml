@@ -16,7 +16,7 @@ spring:
       aop-patterns: com.fastree.springboot.*.service.*
     dynamic:
       primary: system
-      p6spy: false
+      p6spy: true
       druid:
         initial-size: 1
         min-idle: 1
