@@ -9,6 +9,7 @@ import org.apache.curator.framework.api.CuratorWatcher;
 import org.apache.curator.framework.listen.Listenable;
 import org.apache.curator.framework.recipes.barriers.DistributedBarrier;
 import org.apache.curator.framework.recipes.cache.*;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
@@ -214,6 +215,8 @@ class ZookeeperApplicationTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
 
         client.close();
     }

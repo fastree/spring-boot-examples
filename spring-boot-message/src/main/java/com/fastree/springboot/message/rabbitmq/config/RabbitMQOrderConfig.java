@@ -4,6 +4,8 @@ import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.config.DirectRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.retry.MessageRecoverer;
+import org.springframework.amqp.rabbit.retry.RejectAndDontRequeueRecoverer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.autoconfigure.amqp.DirectRabbitListenerContainerFactoryConfigurer;
@@ -48,6 +50,11 @@ public class RabbitMQOrderConfig {
     }
 
     @Bean
+    public MessageRecoverer messageRecoverer() {
+        return new RejectAndDontRequeueRecoverer();
+    }
+
+    @Bean
     public Exchange orderDefaultExchange() {
         return new DirectExchange("order.default.exchange", true, false, null);
     }
@@ -62,19 +69,21 @@ public class RabbitMQOrderConfig {
         return new Binding("order.default.queue", Binding.DestinationType.QUEUE, "order.default.exchange", "order.default.routing.key", null);
     }
 
-    @Bean
+    @Bean("customSimpleRabbitListenerContainerFactory")
     public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory(SimpleRabbitListenerContainerFactoryConfigurer configurer,
                                                                                      ConnectionFactory connectionFactory) {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         configurer.configure(factory, connectionFactory);
+        factory.setMessageConverter(messageConverter());
         return factory;
     }
 
-    @Bean
+    @Bean("customDirectRabbitListenerContainerFactory")
     public DirectRabbitListenerContainerFactory directRabbitListenerContainerFactory(DirectRabbitListenerContainerFactoryConfigurer configurer,
                                                                                      ConnectionFactory connectionFactory) {
         DirectRabbitListenerContainerFactory factory = new DirectRabbitListenerContainerFactory();
         configurer.configure(factory, connectionFactory);
+        factory.setMessageConverter(messageConverter());
         return factory;
     }
 

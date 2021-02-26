@@ -13,8 +13,9 @@
         <module>spring-boot-zookeeper</module>
         <module>spring-boot-message</module>
         <module>spring-boot-websocket</module>
-        <module>spring-boot-flowable</module>
         <module>spring-boot-thymeleaf</module>
+        <module>spring-boot-scheduler</module>
+        <module>spring-boot-activiti</module>
     </modules>
     <name>spring-boot-examples</name>
     <description>Demo project for Spring Boot</description>
